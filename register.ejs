@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <% include ../partials/head %>
+</head>
+
+<body>
+    
+    <div class="body-back">
+        <div class="masthead pdng-stn1">
+            <% include ../partials/header %>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    
+
+    <div class="details-grid">
+        <div class="details-shade">
+            <div class="details-right">
+                <img src="images/icon.png" alt=" " width="60">
+                <h3>Registrierung</h3>
+                <h4>You’re going to like us.</h4>
+            </div>
+            </br></br>
+            <form method="POST" action="/register" class="details-right">
+                <input type="text" name="email" placeholder="Deine E-Mail Adresse?"></br>
+                <input type="text" name="username" placeholder="Dein Name?"></br>
+                <input type="password" name="password" placeholder="Dein Passwort?"></br>
+                <input type="password" name="password2" placeholder="Bitte wiederholen!"></br>
+                <button class="add-button"> Absenden </button>
+            </form>
+        </div>
+    </div>
+    
+
+<li class="details-right"><a href="/login">Login!</a></li>
+
+    <!--/FOOTER/-->
+    <% include ../partials/footer %>
+    
+</body>
+</html>
