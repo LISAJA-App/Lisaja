@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <% include ../partials/head %>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <script>
+        function str_pad(n) {
+            return String("00" + n).slice(-2);
+        }
+        
+        var currentDateFormat = String("<%= user.currentPeriod %>");
+        
+        var currentYear = currentDateFormat.slice(0,4);
+        var currentMonth = currentDateFormat.slice(5,7);
+        var currentDay = currentDateFormat.slice(8,10);
+        
+        currentDateFormat = currentDay + "." + currentMonth + "." + currentYear;
+        var currentPeriodDateFormat = currentMonth + "/" + currentDay + "/" + currentYear;
+        
+        $(document).ready(function(){
+            var currentDate = new Date().getDate();
+            var currentDay = str_pad(new Date().getDate()) + "." + ("0" + (new Date().getMonth() + 1)).slice(-2) + "." + new Date().getUTCFullYear();
+            
+            var currentPeriodDate = String(currentDateFormat);
+            var periodDay = String(currentPeriodDate.slice(0,2));
+            
+            Number(periodDay);
+            Number(currentDate);
+            
+            const date1 = new Date(String(currentPeriodDateFormat));
+            const date2 = new Date();
+            const diffTime = Math.abs(date2.getTime() - date1.getTime());
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+            
+            currentDate = diffDays;
+            
+            Number(currentDate);
+            
+            $(".days li:nth-child(1)").addClass("active");
+            $(".days li:nth-child(1)").append("</br><span class='calenderTextSpan'>(" + currentPeriodDate + ")</span>");
+            
+            $(".days li:nth-child(" + currentDate + ")").addClass("current");
+            $(".days li:nth-child(" + currentDate + ")").append("</br><span class='calenderTextSpan'>(" + currentDay + ")</span>");
+            
+            document.getElementById("currentDateFormat").innerHTML = currentPeriodDate;
+        });
+    </script>
+</head>
+
+<body>
+    <div class="body-back">
+        <div class="masthead pdng-stn1">
+            <% include ../partials/header %>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+    <div class="w3agile banner-bottom">
+        <ul>
+            <li><a href="/calendar" class="hvr-radial-out"><i class="fa fa-calendar-day" aria-hidden="true"></i></a>
+                <h3>Kalender</h3>
+            </li>
+        </ul>
+    </div>
+
+    <div class="details-right" style="">
+        <form method="POST" action="/calendar">
+            <h3 style="max-width: 50%; margin: auto; padding-bottom: 1em;">Um einen Plan zu erstellen, was dir wann gut tut, benötigen wir zuerst das Anfangsdatum deiner letzten Periode!</h3>
+            <h4>Du hattest zuletzt ab dem <span id="currentDateFormat"></span> deine Periode - richtig?</h4>
+            <input type="date" name="period" id="customerPeriod" placeholder="Wann hattest du zuletzt deine Periode?" style="margin-bottom: 1em;">
+            <button class="add-button" type="submit">Absenden</button>
+        </form>
+    </div></br></br>
+    
+    <div class="greenRow"></div>
+
+    <ul class="days">
+        <li>1. Tag der Periode</br><span class="calendarTextSpan">Joggen klingt für heute gut</span></li>
+        <li>2.</br> <span class='calendarTextSpan'>Heute solltest du schwimmen gehen</span></li>
+        <li>3.</br> <span class='calendarTextSpan'>Gönne deinem Körper heute etwas Ruhe</span></li>
+        <li>4.</br> <span class='calendarTextSpan'>Seilchen springen wäre heute eine gute Idee</span></li>
+        <li>5. (Beginn postmenstrueller Phase)</br> <span class='calendarTextSpan'>Oberkörpertraining ist angesagt, Fokus Bauch</span></li>
+        <li>6.</br> <span class='calendarTextSpan'>Eine Pause muss auch mal sein</span></li>
+        <li>7.</br> <span class='calendarTextSpan'>Oberkörpertraining ist wieder dran, diesmal Fokus Rücken</span></li>
+        <li>8.</br> <span class='calendarTextSpan'>Beine und Po dürfen nicht vergessen werden</span></li>
+        <li>9.</br> <span class='calendarTextSpan'>In der Pause liegt die Kraft</span></li>
+        <li>10.</br><span class='calendarTextSpan'>Heute: Oberkörpertaining, wieder Fokus Bauch</span></li>
+        <li>11.</br><span class='calendarTextSpan'>Oberkörpertrainig - Fortsetzung, Fokus Rücken und Schultern</span></li>
+        <li>12. (Beginn instermenstrueller Phase)</br><span class='calendarTextSpan'>Pause, hast du dir verdient!</span></li>
+        <li>13.</br><span class='calendarTextSpan'>Schwimmen gehen ist unser heutiger Tipp für dich</span></li>
+        <li>14.</br><span class='calendarTextSpan'>Pausieren, du hast gestern genug getan</span></li>
+        <li>15.</br><span class='calendarTextSpan'>Beine und Po, Krafttraining ist wieder angesagt</span></li>
+        <li>16.</br><span class='calendarTextSpan'>Bauch, das Krafttraining muss weitergehen</span></li>
+        <li>17.</br><span class='calendarTextSpan'>Pause, verdient natürlich</span></li>
+        <li>18.</br><span class='calendarTextSpan'>Pause, zwei Tage hintereinander!</span></li>
+        <li>19.</br><span class='calendarTextSpan'>Schwimmen gehen wird dir nach der Pause guttun</span></li>
+        <li>20.</br><span class='calendarTextSpan'>Pause, damit du dich nicht überanstrengst</span></li>
+        <li>21.</br><span class='calendarTextSpan'>Joggen, was für die ausdauer tun</span></li>
+        <li>22.</br><span class='calendarTextSpan'>Heute wieder eine Pause</span></li>
+        <li>23. (Beginn prämenstrueller Phase)</br><span class='calendarTextSpan'>Spazieren gehen, entspannend!</span></li>
+        <li>24.</br><span class='calendarTextSpan'>Heute ist Yoga dran</span></li>
+        <li>25.</br><span class='calendarTextSpan'>Wieder eine kleine Pause</span></li>
+        <li>26.</br><span class='calendarTextSpan'>Spazieren gehen, vielleicht nimmst du jemanden mit, macht gleich mehr Spaß</span><br/><span class="calendarWarning">In 3 Tagen beginnt deine Periode!</span></li>
+        <li>27.</br><span class='calendarTextSpan'>Yoga, wie gelenkig bist du?</span><br/><span class="calendarWarning">In 2 Tagen beginnt deine Periode!</span></li>
+        <li>28.</br><span class='calendarTextSpan'>Am letzten Tag nochmal eine Pause</span><br/><span class="calendarWarning">Morgen beginnt deine Periode!</span></li>
+    </ul>
+
+    <div class="greenRow"></div></br></br>
+
+</body>
+
+</html>
+
+
+
+
+<div class="w3agile banner-bottom">
+        <ul>
+            <li class="details-right"><a href="/logout" class="hvr-radial-out"><i class="fa fa-sign-out-alt"
+                        aria-hidden="true"></i></a>
+                <h6>Abmelden</h6>
+            </li>
+        </ul>
+    </div>
+
+
+<!--/FOOTER/-->
+<% include ../partials/footer %>
+
+</body>
+
+</html>
