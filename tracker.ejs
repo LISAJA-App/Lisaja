@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <% include ../partials/head %>
+    
+    <script>
+        function str_pad(n) {
+            return String("00" + n).slice(-2);
+        }
+        
+        function NaN_null(n) {
+            if(n == null) {
+                return Number(0);
+            }
+        }
+    
+        function JoggingStart() {
+            var currentTimeJ = new Date();
+            document.getElementById("customerJoggingBegin").value = str_pad(currentTimeJ.getHours()) + ":" + str_pad(currentTimeJ.getMinutes());
+        }
+        
+        function JoggingStop() {
+            var currentDateJ = new Date();
+            document.getElementById("customerJoggingEnd").value = str_pad(currentDateJ.getHours()) + ":" + str_pad(currentDateJ.getMinutes());
+        }
+        
+        function calculateJogging() {
+            var calculateJoggingStart = String("<%= user.joggingStart %>");
+            var calculateJoggingStop = String("<%= user.joggingStop %>");
+            document.getElementById("joggingHours").innerHTML = String(Math.abs(Number(calculateJoggingStop.slice(0,2)) - Number(calculateJoggingStart.slice(0,2))));
+            document.getElementById("joggingMinutes").innerHTML = Math.abs(Number(calculateJoggingStop.slice(-2)) - Number(calculateJoggingStart.slice(-2)));
+        }
+        
+        function CyclingStart() {
+            var currentTimeJ = new Date();
+            document.getElementById("customerCyclingBegin").value = str_pad(currentTimeJ.getHours()) + ":" + str_pad(currentTimeJ.getMinutes());
+        }
+        
+        function CyclingStop() {
+            var currentDateJ = new Date();
+            document.getElementById("customerCyclingEnd").value = str_pad(currentDateJ.getHours()) + ":" + str_pad(currentDateJ.getMinutes());
+        }
+        
+        function calculateCycling() {
+            var calculateCyclingStart = String("<%= user.cyclingStart %>");
+            var calculateCyclingStop = String("<%= user.cyclingStop %>");
+            document.getElementById("cyclingHours").innerHTML = String(Math.abs(Number(calculateCyclingStop.slice(0,2)) - Number(calculateCyclingStart.slice(0,2))));
+            document.getElementById("cyclingMinutes").innerHTML = Math.abs(Number(calculateCyclingStop.slice(-2)) - Number(calculateCyclingStart.slice(-2)));
+        }
+        
+        function StrenghtenStart() {
+            var currentTimeJ = new Date();
+            document.getElementById("customerStrenghtenBegin").value = str_pad(currentTimeJ.getHours()) + ":" + str_pad(currentTimeJ.getMinutes());
+        }
+        
+        function StrenghtenStop() {
+            var currentDateJ = new Date();
+            document.getElementById("customerStrenghtenEnd").value = str_pad(currentDateJ.getHours()) + ":" + str_pad(currentDateJ.getMinutes());
+        }
+        
+        function calculateStrenghten() {
+            var calculateStrenghtenStart = String("<%= user.strenghtenStart %>");
+            var calculateStrenghtenStop = String("<%= user.strenghtenStop %>");
+            document.getElementById("strenghtenHours").innerHTML = String(Math.abs(Number(calculateStrenghtenStop.slice(0,2)) - Number(calculateStrenghtenStart.slice(0,2))));
+            document.getElementById("strenghtenMinutes").innerHTML = Math.abs(Number(calculateStrenghtenStop.slice(-2)) - Number(calculateStrenghtenStart.slice(-2)));
+        }
+        
+        function calculateWorkout() {
+            document.getElementById("workoutHours").innerHTML = Number(document.getElementById("strenghtenHours").innerHTML) + Number(document.getElementById("cyclingHours").innerHTML) + Number(document.getElementById("joggingHours").innerHTML);
+            document.getElementById("workoutMinutes").innerHTML = Number(document.getElementById("strenghtenMinutes").innerHTML) + Number(document.getElementById("cyclingMinutes").innerHTML) + Number(document.getElementById("joggingMinutes").innerHTML);
+        }
+        
+        window.onload = function(){
+        calculateCycling();
+        calculateJogging();
+        calculateStrenghten();
+        calculateWorkout();
+        }
+    </script>
+
+</head>
+
+<body>
+    <div class="body-back">
+        <div class="masthead pdng-stn1">
+            <% include ../partials/header %>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    
+    <div class="w3agile banner-bottom">
+        <ul>
+            <li><a href="/tracker" class="hvr-radial-out"><i class="fa fa-shoe-prints" aria-hidden="true"></i></a>
+                <h2 class="trackerBig">Tracker</h2>
+            </li>
+        </ul>
+    </div>
+    
+    <div class="greenRow"></div></br></br>
+    
+    <div class="details-right" style="">
+   
+    <h3>Welche Aktivität möchtest du ausführen?</h3>
+    <h5 class="trackerLittle">Wähle aus, dann stoppen wir für dich die Zeit deines Workouts:</h5>
+    
+    </br>
+    
+    <div class="w3agile banner-bottom">
+        <ul>
+            <li><a href="/tracker" class="hvr-radial-out"><i class="fa fa-street-view" aria-hidden="true"></i></a>
+                <h3>Joggen</h3>
+            </li>
+          
+        </ul>
+    </div>
+    
+    
+    <form method="POST" action="/jogging">
+        <h3 class="trackerMiddle">Du hast um <%= user.joggingStart %> Uhr begonnen und um <%= user.joggingStop %> Uhr aufgehört zu joggen!</h3>
+        <h5 class="trackerLittle">Heute bist du insgesamt <span id="joggingHours"></span> Stunden und <span id="joggingMinutes"></span> Minuten gelaufen.</h5></br>
+        <input type="text" name="JoggingBegin" id="customerJoggingBegin" hidden=true>
+        <input type="text" name="JoggingEnd" id="customerJoggingEnd" hidden=true>
+        <button class="add-button" type="submit" onclick="JoggingStart()">Start, das Training beginnt!</button>
+        <button class="add-button" type="submit" onclick="JoggingStop(), calculateJogging()">Stop, Training zuende.</button></br></br>
+    </form>
+    <hr/>
+    <div class="w3agile banner-bottom">
+        <ul>
+            <li><a href="/tracker" class="hvr-radial-out"><i class="fa fa-bicycle" aria-hidden="true"></i></a>
+                <h3>Fahrrad fahren</h3>
+            </li>
+          
+        </ul>
+    </div>
+    
+    
+    <form method="POST" action="/cycling">
+        <h3 class="trackerMiddle">Du hast um <%= user.cyclingStart %> Uhr begonnen und um <%= user.cyclingStop %> Uhr aufgehört Fahrrad zu fahren!</h3>
+        <h5 class="trackerLittle">Heute bist du insgesamt <span id="cyclingHours"></span> Stunden und <span id="cyclingMinutes"></span> Minuten Fahrrad gefahren.</h5></br>
+        <input type="text" name="CyclingBegin" id="customerCyclingBegin" hidden=true>
+        <input type="text" name="CyclingEnd" id="customerCyclingEnd" hidden=true>
+        <button class="add-button" type="submit" onclick="CyclingStart()">Start, das Training beginnt!</button>
+        <button class="add-button" type="submit" onclick="CyclingStop(), calculateCycling()">Stop, Training zuende.</button></br></br>
+    </form>
+    <hr/>
+    <div class="w3agile banner-bottom">
+        <ul>
+            <li><a href="/tracker" class="hvr-radial-out"><i class="fa fa-check" aria-hidden="true"></i></a>
+                <h3>Krafttraining</h3>
+            </li>
+          
+        </ul>
+    </div>
+    
+    
+    <form method="POST" action="/strenghten">
+        <h3 class="trackerMiddle">Du hast um <%= user.strenghtenStart %> Uhr begonnen und um <%= user.strenghtenStop %> Uhr aufgehört mit deinem Krafttraining!</h3>
+        <h5 class="trackerLittle">Heute bist du insgesamt <span id="strenghtenHours"></span> Stunden und <span id="strenghtenMinutes"></span> Minuten Krafttraining gemacht.</h5></br>
+        <input type="text" name="StrenghtenBegin" id="customerStrenghtenBegin" hidden=true>
+        <input type="text" name="StrenghtenEnd" id="customerStrenghtenEnd" hidden=true>
+        <button class="add-button" type="submit" onclick="StrenghtenStart()">Start, das Training beginnt!</button>
+        <button class="add-button" type="submit" onclick="StrenghtenStop(), calculateStrenghten()">Stop, Training zuende.</button></br></br>
+    </form>
+    
+    <div class="greenRow"></div></br></br>
+    
+    <h3 class="trackerBig">Alles in allem hast du heute <span id="workoutHours"></span> Stunden und <span id="workoutMinutes"></span> Minuten Sport getrieben! Gut gemacht!</h3>
+   <br/>
+    </div>
+    
+
+<div class="w3agile banner-bottom">
+        <ul>
+            <li class="details-right"><a href="/logout" class="hvr-radial-out"><i class="fa fa-sign-out-alt"
+                        aria-hidden="true"></i></a>
+                <h6>Abmelden</h6>
+            </li>
+        </ul>
+    </div>
+
+
+    <!--/FOOTER/-->
+    <% include ../partials/footer %>
+    
+</body>
+</html>
