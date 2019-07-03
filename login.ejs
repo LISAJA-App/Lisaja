@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <% include ../partials/head %>
+</head>
+
+<body>
+    <div class="body-back">
+        <div class="masthead pdng-stn1">
+            <% include ../partials/header %>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    
+
+    <div class="details-grid">
+        <div class="details-shade">
+            <div class="details-right">
+                <img src="images/icon.png" alt=" " width="60">
+                <h3>Hallo!</h3>
+                <h4>Kennen wir uns schon oder bist du neu hier?</h4>
+            </div>
+            </br></br>
+            <form method="POST" action="/login" class="details-right">
+                <input type="text" name="username"  placeholder="Dein Name?"></br>
+                <input type="password" name="password" placeholder="Dein Passwort?"></br>
+                <button class="add-button"> Einloggen </button>
+            </form>
+        </div>
+    </div>
+    
+    <div class="w3agile banner-bottom">
+        <ul>
+            <li class="details-right"><a href="/register" class="hvr-radial-out"><i class="fa fa-pen"
+                        aria-hidden="true"></i></a>
+                <h6>Registrieren</h6>
+            </li>
+             <li class="details-right"><a href="/auth/facebook" class="hvr-radial-out"><i class="fab fa-facebook-square"
+                        aria-hidden="true"></i></a>
+                <h6>Facebook</h6>
+            </li>
+            <li class="details-right"><a href="/logout" class="hvr-radial-out"><i class="fa fa-sign-out-alt"
+                        aria-hidden="true"></i></a>
+                <h6>Abmelden</h6>
+            </li>
+        </ul>
+    </div>
+
+    <!--/FOOTER/-->
+    <% include ../partials/footer %>
+    
+</body>
+</html>
